@@ -18,8 +18,8 @@ export class ProdutoService {
     return this.http.get<any[]>(`${this.apiUrl}`);
   }
 
-  getProdutoById(id: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  obterProdutoPorId(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/${id}`);
   }
 
   atualizarProduto(id: string, produto: any): Observable<any> {
