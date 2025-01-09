@@ -22,13 +22,13 @@ export class ObterProdutosComponent implements OnInit {
   // Método para carregar produtos
   carregarProdutos(): void {
     this.produtoService.getProdutos().subscribe({
-      next: (response) => {
-        this.produtos = response; // Armazena os produtos recebidos
-        console.log('Produtos recebidos:', response);
+      next: (data) => {
+        this.produtos = data;
+        this.errorMessage = null;
       },
       error: (error) => {
-        console.error('Erro ao obter produtos:', error);
-        this.errorMessage = 'Erro ao carregar produtos. Tente novamente.';
+        this.errorMessage = 'Erro ao carregar produtos.';
+        console.error(error);
       },
     });
   }

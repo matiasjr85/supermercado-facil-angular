@@ -1,32 +1,33 @@
 <div class="container">
-    <h2 class="title">Lista de Produtos</h2>
+    <h2>Lista de Produtos</h2>
   
-    <!-- Mensagem de erro -->
+    <div *ngIf="produtos.length > 0">
+      <table class="product-table">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Valor de Compra</th>
+            <th>Valor de Venda</th>
+            <th>Fornecedor ID</th>
+            <th>Fornecedor Nome</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let produto of produtos">
+            <td>{{ produto.nome }}</td>
+            <td>{{ produto.valorDeCompra | currency }}</td>
+            <td>{{ produto.valorDeVenda | currency }}</td>
+            <td>{{ produto.fornecedor?._id || 'N/A' }}</td>
+            <td>{{ produto.fornecedor?.nome || 'N/A' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <p *ngIf="produtos.length === 0">Nenhum produto encontrado.</p>
+  
     <div *ngIf="errorMessage" class="error-message">
       {{ errorMessage }}
     </div>
-  
-    <!-- Tabela de produtos -->
-    <table *ngIf="produtos.length > 0" class="product-table">
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>Valor de Compra</th>
-          <th>Valor de Venda</th>
-          <th>Fornecedor</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let produto of produtos">
-          <td>{{ produto.nome }}</td>
-          <td>{{ produto.valorDeCompra | currency }}</td>
-          <td>{{ produto.valorDeVenda | currency }}</td>
-          <td>{{ produto.fornecedor?.nome || 'N/A' }}</td>
-        </tr>
-      </tbody>
-    </table>
-  
-    <!-- Mensagem caso não haja produtos -->
-    <p *ngIf="produtos.length === 0 && !errorMessage">Nenhum produto encontrado.</p>
   </div>
   
