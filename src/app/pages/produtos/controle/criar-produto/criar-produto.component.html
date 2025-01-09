@@ -1,0 +1,23 @@
+<div class="container">
+  <app-voltar-button></app-voltar-button>  <!-- Botão de Voltar -->
+  <h2 class="title">Criar Produto</h2>
+  <form [formGroup]="produtoForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="nome">Nome:</label>
+      <input id="nome" formControlName="nome" />
+    </div>
+    <div class="form-group">
+      <label for="valorDeCompra">Valor de Compra:</label>
+      <input id="valorDeCompra" type="number" formControlName="valorDeCompra" />
+    </div>
+    <div class="form-group">
+      <label for="valorDeVenda">Valor de Venda:</label>
+      <input id="valorDeVenda" type="number" formControlName="valorDeVenda" />
+    </div>
+    <div class="form-group">
+      <label for="fornecedorId">Fornecedor:</label>
+      <input id="fornecedorId" formControlName="fornecedorId" />
+    </div>
+    <button type="submit" [disabled]="produtoForm.invalid">Criar</button>
+  </form>
+</div>
