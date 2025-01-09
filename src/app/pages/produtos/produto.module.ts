@@ -13,14 +13,15 @@ import { VoltarButtonComponent } from '../../voltar-button/voltar-button.compone
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [       
-    ExcluirProdutoComponent,    
+  declarations: [      
+        
   ],
   imports: [
     CriarProdutoComponent,
     ObterProdutosComponent,
     AtualizarProdutoComponent,
     ObterProdutoPorIdComponent,
+    ExcluirProdutoComponent,
     CommonModule, // Necessário para pipes como currency
     FormsModule, 
     ReactiveFormsModule,

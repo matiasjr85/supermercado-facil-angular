@@ -1,1 +1,24 @@
-<p>excluir-produto works!</p>
+<div class="container">
+    <app-voltar-button></app-voltar-button> <!-- Botão de Voltar -->
+    <h2 class="title">Excluir Produto</h2>
+  
+    <!-- Mensagem de sucesso -->
+    <div *ngIf="mensagemSucesso" class="success-message">
+      {{ mensagemSucesso }}
+    </div>
+  
+    <!-- Mensagem de erro -->
+    <div *ngIf="mensagemErro" class="error-message">
+      {{ mensagemErro }}
+    </div>
+  
+    <!-- Formulário -->
+    <form [formGroup]="excluirForm" (ngSubmit)="excluirProduto()">
+      <div class="form-group">
+        <label for="id">ID do Produto:</label>
+        <input id="id" formControlName="id" />
+      </div>
+      <button type="submit" [disabled]="excluirForm.invalid">Excluir</button>
+    </form>
+  </div>
+  
