@@ -1,33 +1,28 @@
-<div class="container">
-    <h2>Lista de Produtos</h2>
-  
-    <div *ngIf="produtos.length > 0">
-      <table class="product-table">
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Valor de Compra</th>
-            <th>Valor de Venda</th>
-            <th>Fornecedor ID</th>
-            <th>Fornecedor Nome</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let produto of produtos">
-            <td>{{ produto.nome }}</td>
-            <td>{{ produto.valorDeCompra | currency }}</td>
-            <td>{{ produto.valorDeVenda | currency }}</td>
-            <td>{{ produto.fornecedor?._id || 'N/A' }}</td>
-            <td>{{ produto.fornecedor?.nome || 'N/A' }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  
-    <p *ngIf="produtos.length === 0">Nenhum produto encontrado.</p>
-  
-    <div *ngIf="errorMessage" class="error-message">
-      {{ errorMessage }}
-    </div>
-  </div>
+<table *ngIf="produtos.length > 0" class="product-table">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Valor de Compra</th>
+        <th>Valor de Venda</th>
+        <th>Fornecedor</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let produto of produtos">
+        <td>{{ produto.nome }}</td>
+        <td>{{ produto.valorDeCompra | currency }}</td>
+        <td>{{ produto.valorDeVenda | currency }}</td>
+        <td>{{ produto.fornecedor?.nomeEmpresa || 'N/A' }}</td>
+        <td class="actions">
+          <button (click)="redirecionarParaAtualizar(produto._id)" class="btn-action">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button (click)="excluirProduto(produto._id)" class="btn-action">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
   

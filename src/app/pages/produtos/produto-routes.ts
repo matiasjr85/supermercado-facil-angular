@@ -16,7 +16,8 @@ export const produtoRoutes: Routes = [
       { path: 'obter-produtos', component: ObterProdutosComponent },
       { path: 'obter-produto-por-id', component: ObterProdutoPorIdComponent },
       { path: 'atualizar-produto', component: AtualizarProdutoComponent },
-      { path: 'excluir-produto', component: ExcluirProdutoComponent}      
+      { path: 'excluir-produto', component: ExcluirProdutoComponent},
+      { path: 'atualizar/:id', component: AtualizarProdutoComponent}      
     ],
   },
 ];

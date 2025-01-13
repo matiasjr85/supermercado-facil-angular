@@ -1,35 +1,48 @@
 import { Component, OnInit } from '@angular/core';
-import { ProdutoService } from '../../../../services/produto.service';
+import { Router } from '@angular/router';
+import { ProdutoService } from '../../../../services/produto.service'; 
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-obter-produtos',
+  standalone: true,
   templateUrl: './obter-produtos.component.html',
   styleUrls: ['./obter-produtos.component.css'],
-  standalone: true,
   imports: [CommonModule]
 })
 export class ObterProdutosComponent implements OnInit {
-  produtos: any[] = []; // Lista de produtos que será exibida
-  errorMessage: string | null = null; // Mensagem de erro, se houver
+  produtos: any[] = [];
 
-  constructor(private produtoService: ProdutoService) {}
+  constructor(private produtoService: ProdutoService, private router: Router) {}
 
   ngOnInit(): void {
     this.carregarProdutos();
   }
 
-  // Método para carregar produtos
   carregarProdutos(): void {
-    this.produtoService.getProdutos().subscribe({
-      next: (data) => {
+    this.produtoService.obterProdutos().subscribe(
+      (data) => {
         this.produtos = data;
-        this.errorMessage = null;
       },
-      error: (error) => {
-        this.errorMessage = 'Erro ao carregar produtos.';
-        console.error(error);
+      (error) => {
+        console.error('Erro ao carregar produtos:', error);
+      }
+    );
+  }
+
+  redirecionarParaAtualizar(produtoId: string): void {
+    // Redireciona para a página de atualização, passando o ID do produto na URL
+    this.router.navigate(['/produtos/atualizar', produtoId]);
+  }
+
+  excluirProduto(produtoId: string): void {
+    this.produtoService.excluirProduto(produtoId).subscribe(
+      () => {
+        this.carregarProdutos();
       },
-    });
+      (error) => {
+        console.error('Erro ao excluir produto:', error);
+      }
+    );
   }
 }
