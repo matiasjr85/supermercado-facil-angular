@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProdutoService } from '../../../../services/produto.service';
-import { VoltarButtonComponent } from '../../../../voltar-button/voltar-button.component';
+import { FornecedorService } from '../../../../services/fornecedor.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -10,63 +10,92 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   templateUrl: './atualizar-produto.component.html',
   styleUrls: ['./atualizar-produto.component.css'],
-  imports: [VoltarButtonComponent, CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
 })
 export class AtualizarProdutoComponent implements OnInit {
   produtoForm: FormGroup;
-  produtoId: string = '';
   mensagemSucesso: string | null = null;
   mensagemErro: string | null = null;
+  fornecedores: { _id: string; nomeEmpresa: string }[] = []; // Ajustado para refletir a estrutura correta
 
   constructor(
     private fb: FormBuilder,
     private produtoService: ProdutoService,
+    private fornecedorService: FornecedorService,
     private route: ActivatedRoute,
-    private router: Router
+    public router: Router
   ) {
     this.produtoForm = this.fb.group({
       nome: ['', [Validators.required]],
       valorDeCompra: ['', [Validators.required, Validators.min(0)]],
       valorDeVenda: ['', [Validators.required, Validators.min(0)]],
-      fornecedorId: ['', [Validators.required]],
+      fornecedorId: ['', [Validators.required]], // Preenchido com o ID do fornecedor selecionado
     });
   }
 
   ngOnInit(): void {
-    this.produtoId = this.route.snapshot.paramMap.get('id') || '';
-    if (this.produtoId) {
-      this.carregarProduto(this.produtoId);
-    }
+    this.carregarFornecedores(); // Carrega os fornecedores ao inicializar o componente
+    this.carregarDadosProduto(); // Carrega os dados do produto a ser atualizado
   }
 
-  carregarProduto(id: string): void {
-    this.produtoService.obterProdutoPorId(id).subscribe(
-      (produto) => {
-        this.produtoForm.setValue({
-          nome: produto.nome,
-          valorDeCompra: produto.valorDeCompra,
-          valorDeVenda: produto.valorDeVenda,
-          fornecedorId: produto.fornecedor?._id,
-        });
+  carregarFornecedores(): void {
+    this.fornecedorService.obterFornecedores().subscribe(
+      (fornecedores) => {
+        console.log('Fornecedores carregados:', fornecedores);
+        this.fornecedores = fornecedores.map((fornecedor) => ({
+          _id: fornecedor._id,
+          nomeEmpresa: fornecedor.nomeEmpresa, // Ajuste para garantir que usamos o campo correto
+        }));
       },
       (err) => {
-        console.error('Erro ao carregar o produto:', err);
+        console.error('Erro ao carregar fornecedores:', err);
+        this.mensagemErro = 'Erro ao carregar a lista de fornecedores.';
       }
     );
   }
 
-  onSubmit(): void {
-    if (this.produtoForm.valid) {
-      const { fornecedorId, ...produtoData } = this.produtoForm.value;
-      this.produtoService.atualizarProduto(this.produtoId, produtoData).subscribe(
-        () => {
-          this.mensagemSucesso = 'Produto atualizado com sucesso!';
-          this.router.navigate(['/produtos/obter-produtos']);
+  carregarDadosProduto(): void {
+    const produtoId = this.route.snapshot.paramMap.get('id');
+    if (produtoId) {
+      this.produtoService.obterProdutoPorId(produtoId).subscribe(
+        (produto) => {
+          this.produtoForm.patchValue({
+            nome: produto.nome,
+            valorDeCompra: produto.valorDeCompra,
+            valorDeVenda: produto.valorDeVenda,
+            fornecedorId: produto.fornecedor._id, // Ajustado para usar o ID do fornecedor
+          });
         },
         (err) => {
-          this.mensagemErro = 'Erro ao atualizar o produto: ' + err.message;
+          console.error('Erro ao carregar produto:', err);
+          this.mensagemErro = 'Erro ao carregar dados do produto.';
         }
       );
+    }
+  }
+
+  onSubmit(): void {
+    this.mensagemSucesso = null;
+    this.mensagemErro = null;
+
+    if (this.produtoForm.valid) {
+      const produtoId = this.route.snapshot.paramMap.get('id');
+      const produtoAtualizado = this.produtoForm.value;
+
+      console.log('Dados enviados para atualização:', produtoAtualizado);
+
+      if (produtoId) {
+        this.produtoService.atualizarProduto(produtoId, produtoAtualizado).subscribe(
+          () => {
+            this.mensagemSucesso = 'Produto atualizado com sucesso!';
+            setTimeout(() => this.router.navigate(['/produtos/obter-produtos']), 2000); // Redireciona após 2 segundos
+          },
+          (err) => {
+            console.error('Erro ao atualizar produto:', err);
+            this.mensagemErro = 'Erro ao atualizar o produto. ' + (err.error?.message || '');
+          }
+        );
+      }
     } else {
       this.mensagemErro = 'Por favor, preencha todos os campos corretamente.';
     }
