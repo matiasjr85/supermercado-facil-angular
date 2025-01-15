@@ -2,71 +2,76 @@
     <h2>Atualizar Produto</h2>
   
     <form [formGroup]="produtoForm" (ngSubmit)="onSubmit()">
+      <!-- Nome do Produto -->
       <div class="form-group">
         <label for="nome">Nome do Produto:</label>
         <input
           id="nome"
-          formControlName="nome"
+          type="text"
           class="form-control"
+          formControlName="nome"
           placeholder="Digite o nome do produto"
         />
+        <div *ngIf="produtoForm.get('nome')?.invalid && produtoForm.get('nome')?.touched" class="text-danger">
+          O nome é obrigatório.
+        </div>
       </div>
   
+      <!-- Valor de Compra -->
       <div class="form-group">
         <label for="valorDeCompra">Valor de Compra:</label>
         <input
           id="valorDeCompra"
           type="number"
-          formControlName="valorDeCompra"
           class="form-control"
+          formControlName="valorDeCompra"
           placeholder="Digite o valor de compra"
         />
+        <div *ngIf="produtoForm.get('valorDeCompra')?.invalid && produtoForm.get('valorDeCompra')?.touched" class="text-danger">
+          O valor de compra deve ser positivo.
+        </div>
       </div>
   
+      <!-- Valor de Venda -->
       <div class="form-group">
         <label for="valorDeVenda">Valor de Venda:</label>
         <input
           id="valorDeVenda"
           type="number"
-          formControlName="valorDeVenda"
           class="form-control"
+          formControlName="valorDeVenda"
           placeholder="Digite o valor de venda"
         />
+        <div *ngIf="produtoForm.get('valorDeVenda')?.invalid && produtoForm.get('valorDeVenda')?.touched" class="text-danger">
+          O valor de venda deve ser positivo.
+        </div>
       </div>
   
+      <!-- Fornecedor -->
       <div class="form-group">
-        <label for="fornecedorId">Fornecedor:</label>
-        <select
-          id="fornecedorId"
-          formControlName="fornecedorId"
-          class="form-control"
-        >
+        <label for="fornecedor">Fornecedor:</label>
+        <select id="fornecedor" class="form-control" formControlName="fornecedor">
           <option value="" disabled>Selecione um fornecedor</option>
           <option *ngFor="let fornecedor of fornecedores" [value]="fornecedor._id">
             {{ fornecedor.nomeEmpresa }}
           </option>
         </select>
+        <div *ngIf="produtoForm.get('fornecedor')?.invalid && produtoForm.get('fornecedor')?.touched" class="text-danger">
+          O fornecedor é obrigatório.
+        </div>
       </div>
   
-      <div class="form-actions">
-        <button type="submit" class="btn btn-primary" [disabled]="!produtoForm.valid">
-          Atualizar
-        </button>
-        <button
-          type="button"
-          class="btn btn-secondary"
-          (click)="router.navigate(['/produtos/obter-produtos'])"
-        >
-          Cancelar
-        </button>
-      </div>
+      <!-- Botão de Enviar -->
+      <button type="submit" class="btn btn-primary" [disabled]="produtoForm.invalid">Atualizar Produto</button>
     </form>
   
+    <!-- Mensagens de Sucesso ou Erro -->
     <div *ngIf="mensagemSucesso" class="alert alert-success mt-3">
       {{ mensagemSucesso }}
     </div>
     <div *ngIf="mensagemErro" class="alert alert-danger mt-3">
       {{ mensagemErro }}
     </div>
+    <button (click)="voltar()" class="btn btn-secondary mt-3">Voltar</button>
   </div>
   

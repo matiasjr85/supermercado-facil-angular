@@ -2,20 +2,21 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';  // Para criação do formulário
 import { ProdutoService } from '../../../../services/produto.service'; // Importando o serviço que criamos
 import { VoltarButtonComponent } from '../../../../voltar-button/voltar-button.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-criar-produto',
   standalone: true,
   templateUrl: './criar-produto.component.html',
   styleUrls: ['./criar-produto.component.css'],
-  imports: [VoltarButtonComponent, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
 })
 export class CriarProdutoComponent {
-  produtoForm: FormGroup;  // O formulário para criar um produto
-
+  produtoForm: FormGroup;  
   constructor(
-    private fb: FormBuilder,  // Para criar o formulário
-    private produtoService: ProdutoService  // Injetando o serviço que criamos
+    private fb: FormBuilder,  
+    private produtoService: ProdutoService,
+    private router: Router
   ) {
     // Inicializando o formulário com os campos necessários
     this.produtoForm = this.fb.group({
@@ -24,6 +25,10 @@ export class CriarProdutoComponent {
       valorDeVenda: ['', Validators.required],  // Valor de Venda é obrigatório
       fornecedorId: ['', Validators.required],  // Fornecedor é obrigatório
     });
+  }
+
+  voltar(): void {
+    this.router.navigate(['/produtos']); // Redireciona para a página de produtos
   }
 
   // Função que será chamada ao submeter o formulário

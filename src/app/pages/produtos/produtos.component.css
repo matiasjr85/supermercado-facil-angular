@@ -1,11 +1,45 @@
 .produtos-page {
-    text-align: center;
-  
-    button {
-      margin: 10px;
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-  }
-  
+  text-align: center;
+  position: relative;
+  padding-top: 40px; /* Espaço para o botão Voltar */
+}
+
+.produtos-buttons {
+  margin-top: 30px; /* Espaço entre os botões e o título */
+}
+
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn-voltar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 16px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+  border-radius: 5px;
+}
+
+.btn-voltar:hover {
+  background-color: #0056b3;
+}
+
+h1 {
+  margin-top: 60px; /* Garantir que o título não fique sobrepondo o botão */
+}
+
+.produtos-buttons button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}

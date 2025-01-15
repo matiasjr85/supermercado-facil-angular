@@ -29,8 +29,12 @@ export class AtualizarProdutoComponent implements OnInit {
       nome: ['', [Validators.required]],
       valorDeCompra: ['', [Validators.required, Validators.min(0)]],
       valorDeVenda: ['', [Validators.required, Validators.min(0)]],
-      fornecedorId: ['', [Validators.required]], // Preenchido com o ID do fornecedor selecionado
+      fornecedor: ['', [Validators.required]], // Preenchido com o ID do fornecedor selecionado
     });
+  }
+
+  voltar(): void {
+    this.router.navigate(['/produtos']); // Redireciona para a página de produtos
   }
 
   ngOnInit(): void {
@@ -63,7 +67,7 @@ export class AtualizarProdutoComponent implements OnInit {
             nome: produto.nome,
             valorDeCompra: produto.valorDeCompra,
             valorDeVenda: produto.valorDeVenda,
-            fornecedorId: produto.fornecedor._id, // Ajustado para usar o ID do fornecedor
+            fornecedor: produto.fornecedor._id, // Ajustado para usar o ID do fornecedor
           });
         },
         (err) => {

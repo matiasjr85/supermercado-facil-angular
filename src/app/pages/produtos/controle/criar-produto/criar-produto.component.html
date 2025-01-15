@@ -1,5 +1,7 @@
 <div class="container">
-  <app-voltar-button></app-voltar-button>  <!-- Botão de Voltar -->
+  <!-- Botão de Voltar -->
+  <button (click)="voltar()" class="btn btn-secondary mb-3">Voltar</button>
+
   <h2 class="title">Criar Produto</h2>
   <form [formGroup]="produtoForm" (ngSubmit)="onSubmit()">
     <div class="form-group">

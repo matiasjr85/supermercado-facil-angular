@@ -1,15 +1,15 @@
 <div class="produtos-page">
+  <!-- Botão de Voltar para Home -->
+  <button (click)="voltarParaHome()" class="btn-voltar">Voltar Menu Principal</button>
+
   <h1>Controle de Produtos</h1>
 
   <!-- Botões de navegação -->
-  <button routerLink="criar-produto" class="btn btn-primary">Criar Produto</button>
-  <button routerLink="obter-produtos" class="btn btn-primary">Obter Produtos</button>
-  <button routerLink="obter-produto-por-id" class="btn btn-primary">Obter Produto por ID</button>
-  <button routerLink="atualizar-produto" class="btn btn-primary">Atualizar Produto</button>
-  <button routerLink="excluir-produto" class="btn btn-primary">Excluir Produto</button>
-
-  <!-- Botão de voltar -->
-  <app-voltar-button></app-voltar-button>
+  <div class="produtos-buttons">
+    <button routerLink="criar-produto" class="btn btn-primary">Criar Produto</button>
+    <button routerLink="obter-produtos" class="btn btn-primary">Obter Produtos</button>
+    <button routerLink="obter-produto-por-id" class="btn btn-primary">Obter Produto por ID</button>
+  </div>
 
   <!-- Router outlet para exibir rotas filhas -->
   <router-outlet></router-outlet>

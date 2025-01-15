@@ -1,62 +1,22 @@
 /* Estilo global para o botão Voltar */
 app-voltar-button {
-  position: fixed;
-  top: 20px;
-  left: 20px;
+  display: none; /* Remover o botão universal de volta para não interferir */
+}
+
+.produtos-page .btn-voltar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 16px;
   padding: 10px 20px;
   background-color: #007bff;
   color: white;
   border: none;
   cursor: pointer;
   z-index: 1000;
-}
-
-app-voltar-button:hover {
-  background-color: #0056b3;
-}
-
-/* Remove estilos globais gerais que afetam h2, div, etc. */
-body {
-  margin-top: 60px; /* Dá espaço suficiente para o botão Voltar */
-}
-
-/* Use seletores mais específicos para a home */
-.home-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 20px;
-}
-
-.home-title {
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-.home-subtitle {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.home-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-}
-
-.home-buttons button {
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #007bff;
-  color: white;
-  transition: background-color 0.3s ease;
 }
 
-.home-buttons button:hover {
+.produtos-page .btn-voltar:hover {
   background-color: #0056b3;
 }
