@@ -1,0 +1,57 @@
+/* Estiliza o contêiner principal */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    background-color: #f9f9f9;
+  }
+  
+  /* Estiliza o título */
+  .home-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #333;
+  }
+  
+  /* Estiliza o subtítulo */
+  .home-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    color: #666;
+  }
+  
+  /* Estiliza o contêiner de botões */
+  .home-buttons {
+    display: flex;
+    gap: 1rem; /* Espaçamento entre os botões */
+  }
+  
+  /* Estiliza os botões */
+  .btn {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    transition: background-color 0.3s;
+  }
+  
+  .btn:hover {
+    background-color: #0056b3;
+  }
+
+  .home-image {
+    width: 200px; /* Ajuste para o tamanho desejado */
+    height: auto; /* Mantém a proporção da imagem */
+    display: block; /* Evita problemas de layout com imagens inline */
+    margin: 0 auto; /* Centraliza a imagem */
+  }
+  
+  
+  

@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   standalone: true,
   templateUrl: './obter-produto-por-id.component.html',
   styleUrls: ['./obter-produto-por-id.component.css'],
-  imports: [CommonModule, ReactiveFormsModule]
+  imports: [CommonModule, ReactiveFormsModule],
 })
 export class ObterProdutoPorIdComponent {
   produtoForm: FormGroup;
@@ -19,9 +19,17 @@ export class ObterProdutoPorIdComponent {
   constructor(
     private fb: FormBuilder,
     private produtoService: ProdutoService,
-    private router: Router) {
+    private router: Router
+  ) {
     this.produtoForm = this.fb.group({
-      id: ['', [Validators.required]],
+      id: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(24), // Garante que o ID tenha exatamente 24 caracteres
+          Validators.maxLength(24),
+        ],
+      ],
     });
   }
 
@@ -39,13 +47,18 @@ export class ObterProdutoPorIdComponent {
       this.produtoService.obterProdutoPorId(id).subscribe({
         next: (produto) => {
           this.produto = produto;
+          this.mensagemErro = null;
         },
         error: (err) => {
-          this.mensagemErro = 'Produto não encontrado. Verifique o ID informado.';
+          if (err.status === 404) {
+            this.mensagemErro = 'Produto não encontrado. Verifique o ID informado.';
+          } else {
+            this.mensagemErro = 'Ocorreu um erro ao buscar o produto. Tente novamente.';
+          }
         },
       });
     } else {
-      this.mensagemErro = 'Por favor, insira um ID válido.';
+      this.mensagemErro = 'Por favor, insira um ID válido com 24 caracteres.';
     }
   }
 }

@@ -1,29 +1,33 @@
 <div class="container">
-    <button (click)="voltar()" class="btn btn-secondary mb-3">Voltar</button>
-    
-    <h2 class="title">Obter Produto por ID</h2>
-  
-    <!-- Mensagem de erro -->
-    <div *ngIf="mensagemErro" class="error-message">
+  <h2 class="title">Buscar Produto por ID</h2>
+
+  <!-- Formulário para buscar produto -->
+  <form [formGroup]="produtoForm" (ngSubmit)="buscarProduto()">
+    <div class="form-group">
+      <label for="id">ID do Produto:</label>
+      <input
+        id="id"
+        formControlName="id"
+        class="form-control"
+        placeholder="Digite o ID do produto"
+        maxlength="24"
+      />
+    </div>
+    <div *ngIf="mensagemErro" class="alert alert-danger">
       {{ mensagemErro }}
     </div>
-  
-    <!-- Formulário -->
-    <form [formGroup]="produtoForm" (ngSubmit)="buscarProduto()">
-      <div class="form-group">
-        <label for="id">ID do Produto:</label>
-        <input id="id" formControlName="id" />
-      </div>
-      <button type="submit" [disabled]="produtoForm.invalid">Buscar</button>
-    </form>
-  
-    <!-- Resultado -->
-    <div *ngIf="produto" class="produto-detalhes">
-      <h3>Detalhes do Produto</h3>
-      <p><strong>Nome:</strong> {{ produto.nome }}</p>
-      <p><strong>Valor de Compra:</strong> {{ produto.valorDeCompra | currency }}</p>
-      <p><strong>Valor de Venda:</strong> {{ produto.valorDeVenda | currency }}</p>
-      <p><strong>Fornecedor:</strong> {{ produto.fornecedor?.nome || 'N/A' }}</p>
+    <div class="form-buttons">
+      <button type="submit" class="btn btn-primary" [disabled]="produtoForm.invalid">Buscar</button>
+      <button (click)="voltar()" class="btn btn-secondary">Voltar</button>
     </div>
+  </form>
+
+  <!-- Exibição do Produto -->
+  <div *ngIf="produto" class="produto-info mt-4">
+    <h3>Informações do Produto</h3>
+    <p><strong>Nome:</strong> {{ produto.nome }}</p>
+    <p><strong>Valor de Compra:</strong> R$ {{ produto.valorDeCompra }}</p>
+    <p><strong>Valor de Venda:</strong> R$ {{ produto.valorDeVenda }}</p>
+    <p><strong>Fornecedor:</strong> {{ produto.fornecedor?.nomeEmpresa || 'N/A' }}</p>
   </div>
-  
+</div>

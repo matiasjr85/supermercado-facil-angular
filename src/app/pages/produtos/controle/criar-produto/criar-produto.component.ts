@@ -3,32 +3,53 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ProdutoService } from '../../../../services/produto.service'; // Importando o serviço que criamos
 import { VoltarButtonComponent } from '../../../../voltar-button/voltar-button.component';
 import { Router } from '@angular/router';
+import { FornecedorService } from '../../../../services/fornecedor.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-criar-produto',
   standalone: true,
   templateUrl: './criar-produto.component.html',
   styleUrls: ['./criar-produto.component.css'],
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
 })
 export class CriarProdutoComponent {
-  produtoForm: FormGroup;  
+  produtoForm: FormGroup;
+  fornecedores: any[] = [];
+  successMessage: string = ''
+  
   constructor(
     private fb: FormBuilder,  
     private produtoService: ProdutoService,
-    private router: Router
+    private router: Router,
+    private fornecedorService: FornecedorService
   ) {
     // Inicializando o formulário com os campos necessários
     this.produtoForm = this.fb.group({
       nome: ['', Validators.required],  // Nome é obrigatório
       valorDeCompra: ['', Validators.required],  // Valor de Compra é obrigatório
       valorDeVenda: ['', Validators.required],  // Valor de Venda é obrigatório
-      fornecedorId: ['', Validators.required],  // Fornecedor é obrigatório
+      fornecedor: ['', Validators.required],  // Fornecedor é obrigatório
     });
   }
 
   voltar(): void {
     this.router.navigate(['/produtos']); // Redireciona para a página de produtos
+  }
+
+  ngOnInit(): void {
+    this.carregarFornecedores();
+  }
+
+  carregarFornecedores(): void {
+    this.fornecedorService.obterFornecedores().subscribe(
+      (dados) => {
+        this.fornecedores = dados;
+      },
+      (erro) => {
+        console.error('Erro ao carregar fornecedores', erro);
+      }
+    );
   }
 
   // Função que será chamada ao submeter o formulário
@@ -40,6 +61,15 @@ export class CriarProdutoComponent {
         next: (response) => {
           console.log('Produto criado com sucesso:', response);
           // Você pode mostrar uma mensagem de sucesso ou redirecionar o usuário
+          this.successMessage = 'Produto cadastrado com sucesso!';
+
+          // Limpando o formulário após a criação
+          this.produtoForm.reset();
+
+          // Opcional: Você pode adicionar um tempo para esconder a mensagem após alguns segundos.
+          setTimeout(() => {
+            this.successMessage = '';
+          }, 3000);
         },
         error: (error) => {
           console.error('Erro ao criar produto:', error);

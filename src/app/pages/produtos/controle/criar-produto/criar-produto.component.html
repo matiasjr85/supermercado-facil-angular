@@ -1,25 +1,36 @@
 <div class="container">
-  <!-- Botão de Voltar -->
-  <button (click)="voltar()" class="btn btn-secondary mb-3">Voltar</button>
-
+  <!-- Título da Página -->
   <h2 class="title">Criar Produto</h2>
+
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+
+  <!-- Formulário para Criar Produto -->
   <form [formGroup]="produtoForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="nome">Nome:</label>
-      <input id="nome" formControlName="nome" />
+      <input id="nome" formControlName="nome" class="form-control" />
     </div>
     <div class="form-group">
       <label for="valorDeCompra">Valor de Compra:</label>
-      <input id="valorDeCompra" type="number" formControlName="valorDeCompra" />
+      <input id="valorDeCompra" type="number" formControlName="valorDeCompra" class="form-control" />
     </div>
     <div class="form-group">
       <label for="valorDeVenda">Valor de Venda:</label>
-      <input id="valorDeVenda" type="number" formControlName="valorDeVenda" />
+      <input id="valorDeVenda" type="number" formControlName="valorDeVenda" class="form-control" />
     </div>
     <div class="form-group">
-      <label for="fornecedorId">Fornecedor:</label>
-      <input id="fornecedorId" formControlName="fornecedorId" />
+      <label for="fornecedor">Fornecedor:</label>
+      <select id="fornecedor" formControlName="fornecedor" class="form-control">
+        <option *ngFor="let fornecedor of fornecedores" [value]="fornecedor._id">{{ fornecedor.nomeEmpresa }}</option>
+      </select>
     </div>
-    <button type="submit" [disabled]="produtoForm.invalid">Criar</button>
+
+    <!-- Botões de Ação -->
+    <div class="form-buttons">
+      <button type="submit" [disabled]="produtoForm.invalid" class="btn btn-success">Criar Produto</button>
+      <button (click)="voltar()" class="btn btn-secondary">Voltar</button>
+    </div>
   </form>
 </div>
