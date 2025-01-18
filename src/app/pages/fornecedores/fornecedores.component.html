@@ -1,5 +1,19 @@
-<div class="container">
-    <app-voltar-button></app-voltar-button>
-    <h2>Página de Fornecedores</h2>
+<div class="fornecedores-page">
+  <!-- Imagem do Carrinho de Supermercado -->
+  <img src="assets/fornecedor.png" alt="Fornecedor de Supermercado" class="fornecedor-img" />
+
+  <!-- Botão de Voltar para Home -->
+  <button (click)="voltarParaHome()" class="btn-voltar">Voltar Menu Principal</button>
+
+  <!-- Título da Página -->
+  <h1>Controle de Fornecedores</h1>
+
+  <!-- Botões de Navegação -->
+  <div class="fornecedores-buttons">
+    <button routerLink="criar-fornecedor" class="btn btn-primary">Criar Fornecedor</button>
+    <button routerLink="obter-fornecedor" class="btn btn-primary">Listar Fornecedores</button>
+    <button routerLink="obter-fornecedor-por-id" class="btn btn-primary">Buscar Fornecedores por ID</button>
   </div>
   
+  <router-outlet></router-outlet>
+</div>

@@ -16,5 +16,9 @@ export class FornecedorService {
   obterFornecedores(): Observable<{ _id: string; nomeEmpresa: string }[]> {
     return this.http.get<{ _id: string; nomeEmpresa: string }[]>(`${this.baseUrl}`);
   }
+
+  criarFornecedor(fornecedor: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl, fornecedor);
+  }
   
 }

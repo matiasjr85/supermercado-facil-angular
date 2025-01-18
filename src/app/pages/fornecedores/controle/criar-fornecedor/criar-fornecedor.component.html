@@ -1,1 +1,56 @@
-<p>criar-fornecedor works!</p>
+<div class="container">
+    <h2 class="title">Criar Fornecedor</h2>
+  
+    <!-- Formulário para criar fornecedor -->
+    <form [formGroup]="fornecedorForm" (ngSubmit)="criarFornecedor()">
+      <div class="form-group">
+        <label for="nomeEmpresa">Nome da Empresa:</label>
+        <input
+          id="nomeEmpresa"
+          formControlName="nomeEmpresa"
+          class="form-control"
+          placeholder="Digite o nome da empresa"
+        />
+      </div>
+  
+      <h3>Endereço</h3>
+      <div class="form-group">
+        <label for="rua">Rua:</label>
+        <input
+          id="rua"
+          formControlName="rua"
+          class="form-control"
+          placeholder="Digite a rua"
+        />
+      </div>
+      <div class="form-group">
+        <label for="numero">Número:</label>
+        <input
+          id="numero"
+          type="number"
+          formControlName="numero"
+          class="form-control"
+          placeholder="Digite o número"
+        />
+      </div>
+      <div class="form-group">
+        <label for="cep">CEP:</label>
+        <input
+          id="cep"
+          type="number"
+          formControlName="cep"
+          class="form-control"
+          placeholder="Digite o CEP"
+        />
+      </div>
+  
+      <div class="form-buttons">
+        <button type="submit" class="btn btn-primary" [disabled]="fornecedorForm.invalid">Criar</button>
+        <button (click)="voltar()" class="btn btn-secondary">Voltar</button>
+      </div>
+    </form>
+  
+    <!-- Mensagem de sucesso ou erro -->
+    <div *ngIf="mensagem" class="mensagem mt-3">{{ mensagem }}</div>
+  </div>
+  

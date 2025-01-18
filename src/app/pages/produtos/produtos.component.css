@@ -30,12 +30,17 @@ h1 {
 /* Estilizando o botão "Voltar Menu Principal" */
 .btn-voltar {
   background-color: #007bff; /* Cor de fundo */
-  color: white; /* Cor do texto */
-  padding: 10px 20px;
-  font-size: 1rem;
-  margin-bottom: 20px;
-  border: none; /* Remover borda */
-  border-radius: 5px; /* Borda arredondada */
+    color: white; /* Cor do texto */
+    padding: 10px 20px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    border: none; /* Remover borda */
+    border-radius: 5px; /* Borda arredondada */
+    position: absolute; /* Torna o botão posicionável */
+    top: 20px; /* Distância do topo */
+    left: 20px; /* Distância da esquerda */
+    z-index: 10;
+    border-radius: 5px; /* Borda arredondada */
 }
 
 /* Estilizando os botões de navegação */
